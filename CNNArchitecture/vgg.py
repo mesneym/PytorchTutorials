@@ -32,11 +32,7 @@ class VGG(nn.Module):
         in_c = in_channels 
         for l in layers:
             if(l != 'M'):
-                conv_layer = [nn.Conv2d(in_channels = in_c,
-                                       out_channels = l, 
-                                       kernel_size = 3,
-                                       stride = 1,
-                                       padding = (1,1)), nn.ReLU()]
+                conv_layer = [nn.Conv2d(in_c,l,kernel_size=3,padding = 1),nn.ReLU()]
 
                 conv_block += conv_layer
                 in_c = l
@@ -50,9 +46,12 @@ class VGG(nn.Module):
              
 
 if __name__ == '__main__':
+    vgg11 = [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M']
+    vgg13 = [64, 64, 'M', 128, 128, 'M', 256, 256, 'M', 512, 512, 'M', 512, 512, 'M']
     vgg16 = [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 'M', 512, 512, 512, 'M', 512, 512, 512, 'M']
+    vgg19 = [64, 64, 'M', 128, 128, 'M', 256, 256, 256, 256, 'M', 512, 512, 512, 512, 'M', 512, 512, 512, 512, 'M']
 
-    model = VGG(3,1000,vgg16)
+    model = VGG(3,1000,vgg11)
     x = torch.rand(1,3,224,244)
     print(model(x).shape)
 
